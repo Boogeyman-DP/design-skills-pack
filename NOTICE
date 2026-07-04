@@ -1,0 +1,27 @@
+Design Skills Pack — atribución de terceros
+============================================
+
+Este pack agrupa skills de varias fuentes. Cada una conserva su licencia original:
+
+1. Impeccable  (skills/impeccable)
+   Fuente: https://github.com/pbakaus/impeccable
+   Licencia: Apache-2.0
+
+2. Taste Skill (skills/brandkit, design-taste-frontend, design-taste-frontend-v1,
+   full-output-enforcement, gpt-taste, high-end-visual-design, image-to-code,
+   imagegen-frontend-mobile, imagegen-frontend-web, industrial-brutalist-ui,
+   minimalist-ui, redesign-existing-projects, stitch-design-taste)
+   Fuente: https://github.com/Leonxlnx/taste-skill
+   Licencia: MIT
+
+3. animate-css (skills/animate-css)
+   Referencia y CSS embebido de Animate.css v4.1.1
+   Fuente: https://github.com/animate-css/animate.css
+   Licencia: MIT
+
+4. emil-design-eng (skills/emil-design-eng)
+   Skill propio, basado en la filosofía pública de Emil Kowalski (animations.dev).
+   Licencia: MIT
+
+Este empaquetado se hace para uso personal/equipo. Respeta las licencias
+originales al redistribuir.

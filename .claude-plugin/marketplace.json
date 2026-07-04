@@ -1,0 +1,19 @@
+{
+  "name": "design-skills-pack",
+  "description": "Pack de skills de diseño frontend (taste, anti-slop, animaciones) para Claude Code y Cowork.",
+  "owner": {
+    "name": "daniel",
+    "email": "wilson.parra.wp@icloud.com"
+  },
+  "plugins": [
+    {
+      "name": "design-skills-pack",
+      "description": "16 skills de diseño: filosofía de UI (Emil Kowalski), Impeccable (anti-slop + 23 comandos), la librería Taste Skill (13 skills), y referencia de Animate.css.",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "daniel"
+      }
+    }
+  ]
+}

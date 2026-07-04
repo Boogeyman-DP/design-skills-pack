@@ -1,0 +1,18 @@
+{
+  "name": "design-skills-pack",
+  "description": "16 skills de diseño frontend para Claude Code y Cowork: filosofía de UI (Emil Kowalski), Impeccable (anti-slop + comandos), Taste Skill (13 skills), y referencia de Animate.css.",
+  "version": "1.0.0",
+  "author": {
+    "name": "daniel"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "frontend",
+    "design",
+    "ui",
+    "animation",
+    "taste",
+    "cowork"
+  ]
+}
