@@ -1,0 +1,60 @@
+const fs=require('fs');
+const GEO = `
+  <g fill="{BODY}">
+    <g id="m">
+      <path d="M128 54 C145 46 158 36 169 20 C166 44 153 63 140 76 Z"/>
+      <path d="M104 42 C117 32 124 21 129 8 C134 27 131 48 121 62 Z"/>
+      <path d="M138 72 L191 55 L150 96 Z"/>
+      <path d="M143 104 L193 119 L139 126 Z"/>
+      <path d="M100 44 L136 60 L150 86 L146 106 L128 126 L100 138 Z"/>
+      <path d="M127 132 L151 112 L139 149 Z"/>
+    </g>
+    <use href="#m" transform="matrix(-1 0 0 1 200.7 0)"/>
+    <path d="M100 92 L121 108 L127 132 L118 158 L100 172 L82 158 L73 132 L79 108 Z"/>
+    
+  </g>
+  <g fill="{CUT}">
+    <path d="M142 63 L147 72 L104 93 L100 85 Z"/>
+    <path d="M58 63 L53 72 L96 93 L100 85 Z"/>
+    <path d="M104 56 L118 64 L115 70 L101 63 Z"/>
+    <path d="M96 56 L82 64 L85 70 L99 63 Z"/>
+    <path d="M133 117 L137 122 L124 133 L119 128 Z"/>
+    <path d="M67 117 L63 122 L76 133 L81 128 Z"/>
+    <path d="M106 102 L117 116 L113 121 L102 108 Z"/>
+    <path d="M94 102 L83 116 L87 121 L98 108 Z"/>
+    <path d="M110 126 L117 132 L108 134 Z"/>
+    <path d="M90 126 L83 132 L92 134 Z"/>
+    <path d="M82 143 L100 150 L118 143 L110 161 L100 166 L90 161 Z"/>
+  </g>
+  <g fill="{BODY}">
+    <path d="M86 144 L91 161 L96 147 Z"/>
+    <path d="M114 144 L109 161 L104 147 Z"/>
+    <path d="M96 165 L98 155 L100 164 Z"/><path d="M104 165 L102 155 L100 164 Z"/>
+  </g>
+  <g fill="{EYE}">
+    <path d="M139 86 L145 95 L114 108 L109 100 Z"/>
+    <path d="M61 86 L55 95 L86 108 L91 100 Z"/>
+  </g>`;
+
+const V = {
+  'negro-hueso':  {BG:'#f2eee4', BODY:'#111114', CUT:'#f2eee4', EYE:'#d9281f'},
+  'negro-brasa':  {BG:'#0a0a0c', BODY:'#33333d', CUT:'#0a0a0c', EYE:'#ff4520'},
+  'negro-oro':    {BG:'#0b0b0d', BODY:'#2b2b33', CUT:'#0b0b0d', EYE:'#e8b23a'},
+  'negro-veneno': {BG:'#070b09', BODY:'#26332b', CUT:'#070b09', EYE:'#7dff4f'},
+  'negro-sangre': {BG:'#140406', BODY:'#38242a', CUT:'#140406', EYE:'#ff2436'},
+  'negro-total':  {BG:'#d8d4c8', BODY:'#000000', CUT:'#d8d4c8', EYE:'#d8d4c8'},
+};
+const OUT='/home/user/design-skills-pack/assets/icons/dragon-negro';
+const names=Object.keys(V);
+for(const n of names){
+  let b=GEO; for(const k of Object.keys(V[n])) b=b.split('{'+k+'}').join(V[n][k]);
+  fs.writeFileSync(`${OUT}/malo-${n}.svg`,
+`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="1000" height="1000"><rect width="200" height="200" fill="${V[n].BG}"/>${b}</svg>`);
+}
+fs.writeFileSync(`${OUT}/malo.html`,
+`<style>body{margin:0;background:#3a3a3e;font:13px system-ui;color:#eee;padding:18px}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}figure{margin:0;text-align:center}
+.c{border-radius:50%;overflow:hidden;aspect-ratio:1}img{width:100%;display:block}
+figcaption{margin-top:6px;opacity:.85}</style><div class="g">`+
+names.map(n=>`<figure><div class="c"><img src="${OUT}/malo-${n}.svg"></div><figcaption>${n}</figcaption></figure>`).join('')+`</div>`);
+console.log('built',names.length);
