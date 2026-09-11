@@ -36,13 +36,16 @@ const spike=(a)=>t=>a*(1-t)**1.6;                 // thick base -> sharp tip
 const B='{INK}', W='{PAPER}';
 let s='';
 const p=(d,f)=>s+=`<path d="${d}" fill="${f}"/>`;
+const outlined=(pts,w,core=0.40)=>{p(ribbon(pts,w),B); p(ribbon(pts,t=>w(t)*core),W);};
 
 // ---- serpentine body: stays thick, tapers only at the tail ----
 const fat=W0=>t=>W0*(1-Math.pow(t,2.6));
-const spine=[[112,94],[146,108],[160,134],[148,162],[116,177],[82,176],[56,165]];
-p(ribbon(spine, fat(36)), B);
-p(ribbon([[124,104],[150,116],[160,136],[148,158],[118,170],[88,169],[68,161]],
-         t=>4*(1-Math.pow(t,1.2))), W);
+const spine=[[110,92],[148,106],[164,134],[152,166],[116,183],[78,181],[50,168]];
+p(ribbon(spine, fat(44)), B);
+p(ribbon([[122,102],[152,114],[165,136],[153,161],[120,175],[86,174],[62,164]],
+         t=>4.4*(1-Math.pow(t,1.15))), W);
+p(ribbon([[132,116],[152,128],[157,146],[142,160],[116,166],[94,164]],
+         t=>2.4*(1-Math.pow(t,1.1))), W);
 
 // ---- dorsal mane along the outer edge of the body ----
 [[[134,92],[146,76],[152,62]],
@@ -51,8 +54,9 @@ p(ribbon([[124,104],[150,116],[160,136],[148,158],[118,170],[88,169],[68,161]],
  [[152,170],[166,184],[172,196]]].forEach(m=>p(ribbon(m, spike(14)), B));
 
 // ---- horns ----
-p(ribbon([[104,62],[126,48],[146,40],[164,37]], spike(12)), B);
-p(ribbon([[128,47],[142,31],[152,19]], spike(7)), B);
+p(ribbon([[104,62],[126,46],[148,34],[170,26]], spike(11)), B);
+p(ribbon([[130,41],[144,25],[152,10]], spike(6.5)), B);
+p(ribbon([[152,31],[166,20],[178,13]], spike(5)), B);
 
 // ---- head ----
 p(`M44 96 C46 88 54 82 64 78 C72 75 79 72 84 66
@@ -63,8 +67,8 @@ p(`M48 112 C60 114 82 114 100 108 L114 116
    C96 126 64 126 44 118 Z`, B);
 // mouth interior, then teeth cut out of it in white
 p(`M45 99 C64 97 86 98 104 100 L100 109 C80 113 60 113 47 111 Z`, B);
-p(`M49 99 L55 109 L61 99 Z M69 99 L73 107 L77 99 Z M85 100 L88 106 L92 100 Z`, W);
-p(`M56 111 L60 103 L65 112 Z M76 111 L80 103 L85 112 Z`, W);
+p(`M48 99 L54 110 L60 99 Z M65 99 L69 106 L73 99 Z M80 100 L84 108 L89 100 Z`, W);
+p(`M54 111 L58 100 L63 112 Z M70 112 L73 105 L77 112 Z M84 111 L88 102 L92 112 Z`, W);
 p(ribbon([[46,98],[39,91],[36,83]], spike(7)), B);
 p(ribbon([[140,43],[152,52],[160,64]], spike(6)), B);
 p(ribbon([[78,70],[92,64],[104,63]], t=>7*(1-0.5*t)), B);
@@ -84,12 +88,17 @@ p(ribbon([[96,64],[108,70],[114,82]], t=>2.4*(1-t)**.9), W);
 [[[62,124],[58,136],[56,148]],[[86,124],[88,136],[92,146]]]
   .forEach(m=>p(ribbon(m, spike(6)), B));
 
+// ragged edges
+[[[58,80],[54,72],[53,65]],[[70,75],[67,67],[67,60]]]
+  .forEach(m=>p(ribbon(m, spike(5)), B));
+
 // ---- whiskers ----
-p(ribbon([[50,90],[36,80],[26,66],[22,50]], t=>5*(1-t)**1.3), B);
-p(ribbon([[46,104],[30,106],[16,100],[9,88]], t=>4.5*(1-t)**1.3), B);
+outlined([[50,90],[33,77],[20,59],[17,40],[26,26]], t=>7*(1-t)**1.05);
+outlined([[46,104],[27,109],[10,102],[1,86],[5,70]], t=>6.4*(1-t)**1.05);
 // ---- beard ----
-p(ribbon([[50,118],[40,130],[34,144]], spike(8)), B);
-p(ribbon([[74,124],[70,138],[72,152]], spike(7)), B);
+p(ribbon([[52,117],[49,131],[56,144]], spike(8)), B);
+p(ribbon([[72,121],[75,137],[86,149]], spike(7.5)), B);
+p(ribbon([[90,119],[97,133],[108,143]], spike(6)), B);
 
 const V={
  'oriental-tinta':  {PAPER:'#f4f1e8', INK:'#141414'},
@@ -117,7 +126,7 @@ const names=Object.keys(V);
 for(const n of names){
   let b=s; for(const k of Object.keys(V[n])) b=b.split('{'+k+'}').join(V[n][k]);
   fs.writeFileSync(`${OUT}/${n}.svg`,
-   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="1000" height="1000"><rect width="200" height="200" fill="${V[n].PAPER}"/>${FIT}${b}</g></svg>`);
+   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="2048" height="2048"><rect width="200" height="200" fill="${V[n].PAPER}"/>${FIT}${b}</g></svg>`);
 }
 const card=(x,c)=>`<figure><div class="${c}"><img src="${x}.svg"></div><figcaption>${x.replace('oriental-','')}</figcaption></figure>`;
 fs.writeFileSync(OUT+'/_sheet.html','<style>body{margin:0;background:#3a3a3e;font:13px system-ui;color:#eee;padding:18px}.g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}figure{margin:0;text-align:center}.c{border-radius:50%;overflow:hidden;aspect-ratio:1}img{width:100%;display:block}figcaption{margin-top:6px;opacity:.85}</style><div class=g>'+names.map(n=>card(n,'c')).join('')+'</div>');

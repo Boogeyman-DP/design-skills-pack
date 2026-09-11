@@ -16,10 +16,20 @@ ninguna ilustración concreta.
 | `oriental-jade` | jade | verde muy oscuro |
 | `oriental-brasa` | naranja brasa | negro |
 
-Cada una en `.svg` y `.png` (1000×1000).
+Cada una en `.svg` y `.png` (2048×2048).
 
 - `_muestras.png` — todas, recortadas en círculo.
 - `_tamano-real.png` — a 48 px, el tamaño de la lista de chats.
+
+## Resolución
+
+El SVG no tiene resolución: es geometría, se ve nítido a cualquier tamaño,
+desde un icono de 16 px hasta una pared. Los PNG se exportan a 2048×2048,
+pero si necesitas más basta con subir el viewport en el render:
+
+```bash
+node _build.js   # regenera los SVG
+```
 
 ## Aviso sobre el tamaño
 
